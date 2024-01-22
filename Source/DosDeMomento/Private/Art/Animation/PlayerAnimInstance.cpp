@@ -15,3 +15,8 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		//Direction = CalculateDirection(Pawn->GetVelocity(), Pawn->GetActorRotation());
 	}
 }
+
+void UPlayerAnimInstance::PersonaUpdate_Implementation()
+{
+	//UE_LOG(LogTemp, Warning, TEXT("PersonaUpdate"));
+}

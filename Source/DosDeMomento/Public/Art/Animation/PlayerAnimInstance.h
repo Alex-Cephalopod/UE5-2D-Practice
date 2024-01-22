@@ -18,6 +18,13 @@ class DOSDEMOMENTO_API UPlayerAnimInstance : public UAnimInstance
 protected:
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
+	UFUNCTION(BlueprintNativeEvent)
+		void PersonaUpdate();
+
+#pragma region Debug Bools
+
+#pragma endregion
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
 		float Speed;
