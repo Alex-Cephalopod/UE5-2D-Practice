@@ -22,7 +22,7 @@ protected:
 		void PersonaUpdate();
 
 #pragma region Debug Bools
-
+	bool bDebugJump = false;
 #pragma endregion
 
 public:
@@ -31,4 +31,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
 		float Direction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
+		UAnimSequence* JumpAnim;
+
+	UFUNCTION(BlueprintCallable)
+		void PlayJump();
 };

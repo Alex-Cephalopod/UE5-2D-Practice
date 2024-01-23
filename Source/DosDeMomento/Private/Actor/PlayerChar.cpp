@@ -42,13 +42,24 @@ void APlayerChar::PlayerMove(const FInputActionValue& Value)
 	const FVector2D MovementDirection = Value.Get<FVector2D>();
 	
 	AddMovementInput(GetActorForwardVector(), MovementDirection.X);
+	
+	bool whatDirection = MovementDirection.X < 0 ? true : false;
+
+	switch (whatDirection)
+	{
+	case true: // left
+		PlayerMesh->SetRelativeRotation(FRotator(0, 90, 0));
+		break;
+	case false: // right
+		PlayerMesh->SetRelativeRotation(FRotator(0, -90, 0));
+		break;
+	}
 }
 
 // Called every frame
 void APlayerChar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
