@@ -34,6 +34,8 @@ void APlayerChar::BeginPlay()
 			LocalPlayerSubsystem->AddMappingContext(MovementContext, 0);
 		}
 	}
+
+	AnimInst = Cast<UPlayerAnimInstance>(PlayerMesh->GetAnimInstance());
 	
 }
 
@@ -73,6 +75,20 @@ void APlayerChar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerChar::PlayerMove);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APlayerChar::Jump);
+	}
+}
+
+void APlayerChar::Jump()
+{
+	Super::Jump();
+
+	if (!GetMovementComponent()->IsFalling())
+	{
+		AnimInst->PlayJump();
+	}
+	else
+	{
+		AnimInst->PlayDoubleJump(); //this gets called multiple times, might cause animation to keep repeating.
 	}
 }
 

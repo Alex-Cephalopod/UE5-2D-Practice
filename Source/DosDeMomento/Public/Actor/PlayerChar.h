@@ -13,12 +13,14 @@
 #include "InputAction.h"
 #include "Camera/CameraComponent.h"
 #include "Art/Animation/PlayerAnimInstance.h"
+#include "GameFramework\CharacterMovementComponent.h"
 #include "PlayerChar.generated.h"
 
 class UInputMappingContext;
 class UInputAction;
 class UCameraComponent;
 class USpringArmComponent;
+class UCharacterMovementComponent;
 
 UCLASS()
 class DOSDEMOMENTO_API APlayerChar : public ACharacter
@@ -28,6 +30,9 @@ class DOSDEMOMENTO_API APlayerChar : public ACharacter
 public:
 	// Sets default values for this character's properties
 	APlayerChar();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Art")
+		UPlayerAnimInstance* AnimInst;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Camera")
 		UCameraComponent* PlayerCamera;
@@ -59,4 +64,6 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void Jump() override;
 };

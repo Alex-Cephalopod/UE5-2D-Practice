@@ -22,6 +22,12 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 void UPlayerAnimInstance::PlayJump()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Jump"));
+	PlaySlotAnimationAsDynamicMontage(JumpAnim, "Jump"); // fix this later. not playing anim
+}
+
+void UPlayerAnimInstance::PlayDoubleJump()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Emerald, TEXT("Double Jump"));
 }
 
 void UPlayerAnimInstance::PersonaUpdate_Implementation()
@@ -31,5 +37,10 @@ void UPlayerAnimInstance::PersonaUpdate_Implementation()
 	{
 		PlayJump();
 		bDebugJump = false;
+	}
+	else if (bDebugDJump)
+	{
+		PlayDoubleJump();
+		bDebugDJump = false;
 	}
 }

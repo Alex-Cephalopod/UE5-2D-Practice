@@ -22,7 +22,10 @@ protected:
 		void PersonaUpdate();
 
 #pragma region Debug Bools
-	bool bDebugJump = false;
+	UPROPERTY(EditAnywhere)
+		bool bDebugJump = false;
+	UPROPERTY(EditAnywhere)
+		bool bDebugDJump = false;
 #pragma endregion
 
 public:
@@ -37,4 +40,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void PlayJump();
+
+	UFUNCTION(BlueprintCallable)
+		void PlayDoubleJump();
 };
