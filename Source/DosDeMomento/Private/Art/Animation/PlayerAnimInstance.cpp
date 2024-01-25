@@ -28,6 +28,7 @@ void UPlayerAnimInstance::PlayJump()
 void UPlayerAnimInstance::PlayDoubleJump()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Emerald, TEXT("Double Jump"));
+	PlaySlotAnimationAsDynamicMontage(DoubleJumpAnim, "Jump");
 }
 
 void UPlayerAnimInstance::PersonaUpdate_Implementation()

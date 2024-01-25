@@ -58,10 +58,35 @@ void APlayerChar::PlayerMove(const FInputActionValue& Value)
 	}
 }
 
+void APlayerChar::Sprint(const FInputActionValue& Value)
+{
+	const bool bIsSprinting = Value.Get<bool>();
+
+	GetCharacterMovement()->MaxWalkSpeed = 1000;
+	//AnimInst->bIsSprinting = true;
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Sprinting"));
+}
+
+void APlayerChar::ReleaseSprint(const FInputActionValue& Value)
+{
+	GetCharacterMovement()->MaxWalkSpeed = 600;
+	//AnimInst->bIsSprinting = false;
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Not Sprinting"));
+}
+
 // Called every frame
 void APlayerChar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (!GetMovementComponent()->IsMovingOnGround())
+	{
+		AnimInst->bIsInAir = true;
+	}
+	else
+	{
+		AnimInst->bIsInAir = false;
+	}
 }
 
 // Called to bind functionality to input
@@ -74,6 +99,8 @@ void APlayerChar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	if (EnhancedInputComponent)
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerChar::PlayerMove);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &APlayerChar::Sprint);
+		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &APlayerChar::ReleaseSprint);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APlayerChar::Jump);
 	}
 }
@@ -85,10 +112,12 @@ void APlayerChar::Jump()
 	if (!GetMovementComponent()->IsFalling())
 	{
 		AnimInst->PlayJump();
+		bCanDoubleJump = true;
 	}
-	else
+	else if (GetMovementComponent()->IsFalling() && bCanDoubleJump)
 	{
-		AnimInst->PlayDoubleJump(); //this gets called multiple times, might cause animation to keep repeating.
+		AnimInst->PlayDoubleJump();
+		bCanDoubleJump = false;
 	}
 }
 

@@ -36,7 +36,16 @@ public:
 		float Direction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
+		bool bIsInAir;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
+		bool bIsSprinting;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
 		UAnimSequence* JumpAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
+		UAnimSequence* DoubleJumpAnim;
 
 	UFUNCTION(BlueprintCallable)
 		void PlayJump();

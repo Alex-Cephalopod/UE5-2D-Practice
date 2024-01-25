@@ -52,11 +52,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Input")
 		UInputAction* JumpAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Input")
+		UInputAction* SprintAction;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void PlayerMove(const FInputActionValue& Value);
+
+	void Sprint(const FInputActionValue& Value);
+	void ReleaseSprint(const FInputActionValue& Value);
+
+	bool bCanDoubleJump = true;
 
 public:	
 	// Called every frame
