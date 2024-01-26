@@ -42,6 +42,9 @@ public:
 		bool bIsSprinting;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
+		bool bIsCrouching;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
 		UAnimSequence* JumpAnim;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")

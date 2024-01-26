@@ -45,9 +45,9 @@ void APlayerChar::PlayerMove(const FInputActionValue& Value)
 	
 	AddMovementInput(GetActorForwardVector(), MovementDirection.X);
 	
-	bool whatDirection = MovementDirection.X < 0 ? true : false;
+	bool FaceDirection = MovementDirection.X < 0 ? true : false;
 
-	switch (whatDirection)
+	switch (FaceDirection)
 	{
 	case true: // left
 		PlayerMesh->SetRelativeRotation(FRotator(0, 90, 0));
@@ -56,20 +56,37 @@ void APlayerChar::PlayerMove(const FInputActionValue& Value)
 		PlayerMesh->SetRelativeRotation(FRotator(0, -90, 0));
 		break;
 	}
+
+	if (MovementDirection.Y < 0 && !AnimInst->bIsSprinting)
+	{
+		AnimInst->bIsCrouching = true;
+		GetCharacterMovement()->MaxWalkSpeed = 300;
+	}
+	else if (MovementDirection.Y > 0)
+	{
+		AnimInst->bIsCrouching = false;
+		GetCharacterMovement()->MaxWalkSpeed = 600;
+	}
+	else
+	{
+		AnimInst->bIsCrouching = false;
+		GetCharacterMovement()->MaxWalkSpeed = 600;
+	}
 }
 
 void APlayerChar::Sprint(const FInputActionValue& Value)
 {
-	const bool bIsSprinting = Value.Get<bool>();
-
-	GetCharacterMovement()->MaxWalkSpeed = 1000;
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Sprinting"));
+	if (!AnimInst->bIsCrouching)
+	{
+		AnimInst->bIsSprinting = true;
+		GetCharacterMovement()->MaxWalkSpeed = 1000;
+	} 
 }
 
 void APlayerChar::ReleaseSprint(const FInputActionValue& Value)
 {
+	AnimInst->bIsSprinting = false;
 	GetCharacterMovement()->MaxWalkSpeed = 600;
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Not Sprinting"));
 }
 
 // Called every frame
