@@ -63,14 +63,12 @@ void APlayerChar::Sprint(const FInputActionValue& Value)
 	const bool bIsSprinting = Value.Get<bool>();
 
 	GetCharacterMovement()->MaxWalkSpeed = 1000;
-	//AnimInst->bIsSprinting = true;
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Sprinting"));
 }
 
 void APlayerChar::ReleaseSprint(const FInputActionValue& Value)
 {
 	GetCharacterMovement()->MaxWalkSpeed = 600;
-	//AnimInst->bIsSprinting = false;
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Not Sprinting"));
 }
 
