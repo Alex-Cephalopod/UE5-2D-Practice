@@ -8,4 +8,13 @@ void APlayerCharController::BeginPlay()
 	Super::BeginPlay();
 
 	SetInputMode(FInputModeGameOnly());
+	bShowMouseCursor = true;
+	
+}
+
+void APlayerCharController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	
 }

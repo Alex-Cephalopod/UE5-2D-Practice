@@ -55,6 +55,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Input")
 		UInputAction* SprintAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Input")
+		UInputAction* CrouchAction;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -63,6 +66,9 @@ protected:
 
 	void Sprint(const FInputActionValue& Value);
 	void ReleaseSprint(const FInputActionValue& Value);
+
+	void Crouch(const FInputActionValue& Value); 
+	void ReleaseCrouch(const FInputActionValue& Value); 
 
 	bool bCanDoubleJump = true;
 

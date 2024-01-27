@@ -56,22 +56,6 @@ void APlayerChar::PlayerMove(const FInputActionValue& Value)
 		PlayerMesh->SetRelativeRotation(FRotator(0, -90, 0));
 		break;
 	}
-
-	if (MovementDirection.Y < 0 && !AnimInst->bIsSprinting)
-	{
-		AnimInst->bIsCrouching = true;
-		GetCharacterMovement()->MaxWalkSpeed = 300;
-	}
-	else if (MovementDirection.Y > 0)
-	{
-		AnimInst->bIsCrouching = false;
-		GetCharacterMovement()->MaxWalkSpeed = 600;
-	}
-	else
-	{
-		AnimInst->bIsCrouching = false;
-		GetCharacterMovement()->MaxWalkSpeed = 600;
-	}
 }
 
 void APlayerChar::Sprint(const FInputActionValue& Value)
@@ -86,6 +70,18 @@ void APlayerChar::Sprint(const FInputActionValue& Value)
 void APlayerChar::ReleaseSprint(const FInputActionValue& Value)
 {
 	AnimInst->bIsSprinting = false;
+	GetCharacterMovement()->MaxWalkSpeed = 600;
+}
+
+void APlayerChar::Crouch(const FInputActionValue& Value)
+{
+	AnimInst->bIsCrouching = true;
+	GetCharacterMovement()->MaxWalkSpeed = 300;
+}
+
+void APlayerChar::ReleaseCrouch(const FInputActionValue& Value)
+{
+	AnimInst->bIsCrouching = false;
 	GetCharacterMovement()->MaxWalkSpeed = 600;
 }
 
@@ -114,8 +110,13 @@ void APlayerChar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	if (EnhancedInputComponent)
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerChar::PlayerMove);
+
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &APlayerChar::Sprint);
 		EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &APlayerChar::ReleaseSprint);
+
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &APlayerChar::Crouch);
+		EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Completed, this, &APlayerChar::ReleaseCrouch);
+
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APlayerChar::Jump);
 	}
 }

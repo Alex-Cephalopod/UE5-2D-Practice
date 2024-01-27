@@ -17,5 +17,8 @@ class DOSDEMOMENTO_API APlayerCharController : public APlayerController
 protected:
 
 	virtual void BeginPlay() override;
+
+	//call the tick function every frame
+	virtual void Tick(float DeltaTime) override;
 	
 };
