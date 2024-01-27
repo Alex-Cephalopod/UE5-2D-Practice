@@ -26,6 +26,8 @@ protected:
 		bool bDebugJump = false;
 	UPROPERTY(EditAnywhere)
 		bool bDebugDJump = false;
+	UPROPERTY(EditAnywhere)
+		bool bDebugAirDash = false;
 #pragma endregion
 
 public:
@@ -45,14 +47,25 @@ public:
 		bool bIsCrouching;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
+		bool bIsAirDash;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
 		UAnimSequence* JumpAnim;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
 		UAnimSequence* DoubleJumpAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player|Animation")
+		UAnimSequence* AirDashAnim;
 
 	UFUNCTION(BlueprintCallable)
 		void PlayJump();
 
 	UFUNCTION(BlueprintCallable)
 		void PlayDoubleJump();
+
+	UFUNCTION(BlueprintCallable)
+		void PlayAirDash();
 };

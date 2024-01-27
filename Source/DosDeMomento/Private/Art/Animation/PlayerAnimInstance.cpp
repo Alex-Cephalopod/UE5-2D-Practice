@@ -31,6 +31,12 @@ void UPlayerAnimInstance::PlayDoubleJump()
 	PlaySlotAnimationAsDynamicMontage(DoubleJumpAnim, "Jump");
 }
 
+void UPlayerAnimInstance::PlayAirDash()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Emerald, TEXT("Air Dash"));
+	PlaySlotAnimationAsDynamicMontage(AirDashAnim, "Jump");
+}
+
 void UPlayerAnimInstance::PersonaUpdate_Implementation()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("PersonaUpdate"));
@@ -43,5 +49,10 @@ void UPlayerAnimInstance::PersonaUpdate_Implementation()
 	{
 		PlayDoubleJump();
 		bDebugDJump = false;
+	}
+	else if (bDebugAirDash)
+	{
+		PlayAirDash();
+		bDebugAirDash = false;
 	}
 }

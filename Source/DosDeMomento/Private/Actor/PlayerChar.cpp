@@ -60,11 +60,16 @@ void APlayerChar::PlayerMove(const FInputActionValue& Value)
 
 void APlayerChar::Sprint(const FInputActionValue& Value)
 {
-	if (!AnimInst->bIsCrouching)
+	if (!AnimInst->bIsCrouching && !AnimInst->bIsInAir)
 	{
 		AnimInst->bIsSprinting = true;
 		GetCharacterMovement()->MaxWalkSpeed = 1000;
 	} 
+	/*else if (AnimInst->bIsInAir && !AnimInst->bIsAirDash)
+	{
+		AnimInst->PlayAirDash();
+		AnimInst->bIsAirDash = true;
+	}*/
 }
 
 void APlayerChar::ReleaseSprint(const FInputActionValue& Value)
