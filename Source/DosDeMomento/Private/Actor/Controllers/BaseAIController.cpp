@@ -3,3 +3,14 @@
 
 #include "Actor/Controllers/BaseAIController.h"
 
+ABaseAIController::ABaseAIController()
+{
+}
+
+void ABaseAIController::OnPossess(APawn* InPawn)
+{
+}
+
+void ABaseAIController::OnTargetPerceptionUpdated(AActor* Actor, FAIStimulus Stimulus)
+{
+}

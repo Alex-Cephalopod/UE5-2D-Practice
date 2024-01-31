@@ -4,6 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AIModule/Classes/Blueprint/AIBlueprintHelperLibrary.h"
+#include "AIController.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "Perception/AIPerceptionSystem.h"
+#include "Perception/AISense_Sight.h"
 #include "BaseEnemy.generated.h"
 
 UCLASS()
@@ -14,6 +19,12 @@ class DOSDEMOMENTO_API ABaseEnemy : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ABaseEnemy();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UBlackboardComponent* Blackboard;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FName AmmoKey;
 
 protected:
 	// Called when the game starts or when spawned
