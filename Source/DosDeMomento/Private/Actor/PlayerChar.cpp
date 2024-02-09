@@ -32,6 +32,7 @@ void APlayerChar::BeginPlay()
 		if (LocalPlayerSubsystem)
 		{
 			LocalPlayerSubsystem->AddMappingContext(MovementContext, 0);
+			//LocalPlayerSubsystem->AddMappingContext(AnotherMappingContext, 1);
 		}
 	}
 
